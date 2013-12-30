@@ -7,12 +7,12 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("jungletools:jungle_spore", {
-	description = "Jungle spore",
+	description = "Jungle Spore",
 	inventory_image = "jungletools_jungle_spore.png",
 })
 
 minetest.register_craftitem("jungletools:jungle_dust", {
-	description = "Jungle dust",
+	description = "Jungle Dust",
 	inventory_image = "jungletools_jungle_dust.png",
 })
 
@@ -28,7 +28,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("jungletools:jungle_bar", {
-	description = "Jungle bar",
+	description = "Jungle Bar",
 	inventory_image = "jungletools_jungle_bar.png",
 })
 
@@ -109,7 +109,8 @@ minetest.register_craft({
 	}
 })
 
--- Thanks Qwrwed
+
+--code initially from qwrwed
 
 minetest.register_tool("jungletools:hoe_jungle", {
     description = "Staff of Grass",
@@ -163,20 +164,18 @@ minetest.register_craft({
 	}
 })
 
--- Thanks Qwrwed
+-- code initially by qwrwed
 	
-local dustnodeformspec = 
-	"size[8,9]"..
-	"label[3,0;Spore Grinder]"..
-	"list[current_name;spore;1,2;1,1;]"..
-	"label[0,2;  Spore:]"..
-	"list[current_name;dust;6,2;1,1;]"..
-	"label[5,2;  Dust:]"..
-	"list[current_player;main;0,5;8,4;]"..
-	"button[2,2;3,1;create;Grind]"
-local dust = {
-	{"jungletools:jungle_spore", "jungletools:jungle_dust"},
-}	
+local sporegrinderformspec = 
+	"size[8,8]"..
+	"label[4,0;Spore Grinder]"..
+	"list[current_name;spore;3,1;1,1;]"..
+	"label[2,1;  Spore:]"..
+	"list[current_name;dust;3,3;1,1;]"..
+	"label[2,3; Dust:]"..
+	"list[current_player;main;0,4;8,4;]"..
+	"button[4,2;1,1;grind;Grind]"
+
 
 
 minetest.register_node("jungletools:spore_grinder", {
@@ -185,7 +184,7 @@ minetest.register_node("jungletools:spore_grinder", {
 	paramtype2 = "facedir",
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec",dustnodeformspec)
+		meta:set_string("formspec",sporegrinderformspec)
 		meta:set_string("infotext", "Spore Grinder")
 		local inv = meta:get_inventory()
 		inv:set_size("main", 8*4)
@@ -219,14 +218,10 @@ minetest.register_node("jungletools:spore_grinder", {
 	on_receive_fields = function(pos, formname, fields, sender)
 		local meta = minetest.get_meta(pos);
 		local inv = meta:get_inventory()
-		for _, row in ipairs(dust) do
-			local spore = row[1]
-			local dust = row[2]
-			if fields.create then
-			if	inv:get_stack("spore", 1):get_name() == spore and inv:is_empty("dust") then
-					inv:add_item("dust", dust)
-					inv:remove_item("spore", spore)
-				end
+			if fields.grind then
+			if	inv:get_stack("spore", 1):get_name() == "jungletools:jungle_spore" and (inv:is_empty("dust") or inv:get_stack("dust", 1):get_name() == "jungletools:jungle_dust") then
+					inv:add_item("dust", "jungletools:jungle_dust")
+					inv:remove_item("spore", "jungletools:jungle_spore")
 			end
 		end
 	end,
