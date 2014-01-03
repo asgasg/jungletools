@@ -1,5 +1,15 @@
 -- mods/jungletools/init.lua
 
+minetest.register_abm({
+	nodenames = {"default:leaves"},
+	interval = 120,
+	chance = 1000,
+	action = function(pos)
+		pos.y=pos.y+1
+		minetest.add_node(pos, {name="default:jungleleaves"})
+	end,
+})
+
 minetest.register_craft({
 	type = "shapeless",
 	output = "jungletools:jungle_spore 3",
