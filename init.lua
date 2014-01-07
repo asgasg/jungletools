@@ -5,7 +5,6 @@ minetest.register_abm({
 	interval = 120,
 	chance = 1000,
 	action = function(pos)
-		pos.y=pos.y+1
 		minetest.add_node(pos, {name="default:jungleleaves"})
 	end,
 })
