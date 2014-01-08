@@ -227,10 +227,19 @@ minetest.register_node("jungletools:spore_grinder", {
 	on_receive_fields = function(pos, formname, fields, sender)
 		local meta = minetest.get_meta(pos);
 		local inv = meta:get_inventory()
-			if fields.grind then
-			if	inv:get_stack("spore", 1):get_name() == "jungletools:jungle_spore" and (inv:is_empty("dust") or inv:get_stack("dust", 1):get_name() == "jungletools:jungle_dust") then
-					inv:add_item("dust", "jungletools:jungle_dust")
-					inv:remove_item("spore", "jungletools:jungle_spore")
+		local amount_spores = (inv:get_stack("spore", 1):get_count())
+		local amount_dust = (inv:get_stack("dust", 1):get_count())
+		if fields.grind then
+			if inv:get_stack("spore", 1):get_name() == "jungletools:jungle_spore" and (inv:is_empty("dust") or inv:get_stack("dust", 1):get_name() == "jungletools:jungle_dust") then
+				local amount_total = (amount_spores + amount_dust)
+				if amount_total <= 99 then
+					inv:add_item("dust", "jungletools:jungle_dust "..amount_spores)
+					inv:remove_item("spore", "jungletools:jungle_spore "..amount_spores)
+				else
+					local amount_max = 99-amount_dust
+					inv:add_item("dust", "jungletools:jungle_dust "..amount_max)
+					inv:remove_item("spore", "jungletools:jungle_spore "..amount_max)
+				end
 			end
 		end
 	end,
