@@ -121,6 +121,10 @@ minetest.register_craft({
 
 --code initially from qwrwed
 
+if minetest.get_modpath("technic") then	
+	technic.register_grinder_recipe({input="jungletools:jungle_spore", output="jungletools:jungle_dust 1"})
+end
+
 minetest.register_tool("jungletools:hoe_jungle", {
     description = "Staff of Grass",
     inventory_image = "jungletools_jungle_hoe.png",
