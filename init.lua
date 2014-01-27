@@ -57,10 +57,18 @@ minetest.register_tool("jungletools:sword_jungle", {
 		full_punch_interval = 0.5,
 		max_drop_level=1,
 		groupcaps={
-			snappy={times={[1]=1.60, [2]=1.00, [3]=0.60}, uses=40, maxlevel=3},
+			snappy={times={[1]=1.60, [2]=0.80, [3]=0.40}, uses=60, maxlevel=3},
 		},
-		damage_groups = {fleshy=8},
-	}
+		damage_groups = {fleshy=11},
+	},
+	minetest.register_on_punchnode(function(pos, node, puncher)
+		if puncher:get_wielded_item():get_name() == 'jungletools:sword_jungle' then
+			if node.name == "default:grass_5" then
+				minetest.add_node(pos, { name="default:junglegrass"})
+			end
+		end
+	end)
+
 })
 
 minetest.register_craft({
@@ -69,7 +77,7 @@ minetest.register_craft({
 		{"jungletools:jungle_bar","jungletools:jungle_bar","jungletools:jungle_bar"},
 		{"jungletools:jungle_bar","group:stick","jungletools:jungle_bar"},
 		{"","group:stick",""},
-	}
+	},
 })
 
 minetest.register_tool("jungletools:pax_jungle", {
@@ -79,11 +87,18 @@ minetest.register_tool("jungletools:pax_jungle", {
 		full_punch_interval = 0.5,
 		max_drop_level=3,
 		groupcaps={
-			choppy = {times={[1]=1.50, [2]=0.80, [3]=0.50}, uses=40, maxlevel=2},
-			cracky = {times={[1]=1.50, [2]=0.80, [3]=0.50}, uses=40, maxlevel=3},
+			choppy = {times={[1]=0.90, [2]=0.50, [3]=0.20}, uses=60, maxlevel=2},
+			cracky = {times={[1]=0.90, [2]=0.50, [3]=0.20}, uses=60, maxlevel=3},
 		},
-		damage_groups = {fleshy=6},
+		damage_groups = {fleshy=7},
 	},
+	minetest.register_on_punchnode(function(pos, node, puncher)
+		if puncher:get_wielded_item():get_name() == 'jungletools:pax_jungle' then
+			if node.name == "default:tree" then
+				minetest.add_node(pos, { name="default:jungletree"})
+			end
+		end
+	end)
 })
 
 minetest.register_craft({
@@ -103,10 +118,17 @@ minetest.register_tool("jungletools:shovel_jungle", {
 		full_punch_interval = 0.5,
 		max_drop_level=1,
 		groupcaps={
-			crumbly = {times={[1]=1.10, [2]=0.80, [3]=0.40}, uses=40, maxlevel=3},
+			crumbly = {times={[1]=0.90, [2]=0.40, [3]=0.10}, uses=60, maxlevel=3},
 		},
-		damage_groups = {fleshy=6},
+		damage_groups = {fleshy=9},
 	},
+	minetest.register_on_punchnode(function(pos, node, puncher)
+		if puncher:get_wielded_item():get_name() == 'jungletools:shovel_jungle' then
+			if node.name == "default:leaves" then
+				minetest.add_node(pos, { name="default:jungleleaves"})
+			end
+		end
+	end)
 })
 
 minetest.register_craft({
@@ -120,10 +142,6 @@ minetest.register_craft({
 
 
 --code initially from qwrwed
-
-if minetest.get_modpath("technic") then	
-	technic.register_grinder_recipe({input="jungletools:jungle_spore", output="jungletools:jungle_dust 1"})
-end
 
 minetest.register_tool("jungletools:hoe_jungle", {
     description = "Staff of Grass",
