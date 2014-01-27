@@ -57,9 +57,9 @@ minetest.register_tool("jungletools:sword_jungle", {
 		full_punch_interval = 0.5,
 		max_drop_level=1,
 		groupcaps={
-			snappy={times={[1]=1.60, [2]=0.80, [3]=0.40}, uses=60, maxlevel=3},
+			snappy={times={[1]=1.60, [2]=1.00, [3]=0.60}, uses=40, maxlevel=3},
 		},
-		damage_groups = {fleshy=11},
+		damage_groups = {fleshy=8},
 	},
 	minetest.register_on_punchnode(function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == 'jungletools:sword_jungle' then
@@ -87,10 +87,10 @@ minetest.register_tool("jungletools:pax_jungle", {
 		full_punch_interval = 0.5,
 		max_drop_level=3,
 		groupcaps={
-			choppy = {times={[1]=0.90, [2]=0.50, [3]=0.20}, uses=60, maxlevel=2},
-			cracky = {times={[1]=0.90, [2]=0.50, [3]=0.20}, uses=60, maxlevel=3},
+			choppy = {times={[1]=1.50, [2]=0.80, [3]=0.50}, uses=40, maxlevel=2},
+			cracky = {times={[1]=1.50, [2]=0.80, [3]=0.50}, uses=40, maxlevel=3},
 		},
-		damage_groups = {fleshy=7},
+		damage_groups = {fleshy=6},
 	},
 	minetest.register_on_punchnode(function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == 'jungletools:pax_jungle' then
@@ -118,9 +118,9 @@ minetest.register_tool("jungletools:shovel_jungle", {
 		full_punch_interval = 0.5,
 		max_drop_level=1,
 		groupcaps={
-			crumbly = {times={[1]=0.90, [2]=0.40, [3]=0.10}, uses=60, maxlevel=3},
+			crumbly = {times={[1]=1.10, [2]=0.80, [3]=0.40}, uses=40, maxlevel=3},
 		},
-		damage_groups = {fleshy=9},
+		damage_groups = {fleshy=6},
 	},
 	minetest.register_on_punchnode(function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == 'jungletools:shovel_jungle' then
