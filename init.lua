@@ -1,18 +1,18 @@
 -- mods/jungletools/init.lua
 
-minetest.register_abm({
-	nodenames = {"default:leaves"},
-	interval = 120,
-	chance = 1000,
-	action = function(pos)
-		minetest.add_node(pos, {name="default:jungleleaves"})
-	end,
+minetest.register_craft({
+	output = "default:junglesapling",
+	recipe = {
+		{"","default:leaves",""},
+		{"default:leaves","default:sapling","default:leaves"},
+		{"","default:tree",""},
+	},
 })
 
 minetest.register_craft({
 	type = "shapeless",
 	output = "jungletools:jungle_spore 3",
-	recipe = {"default:gold_lump", "default:jungleleaves", "default:jungleleaves"},
+	recipe = {"default:gold_lump", "default:mese_crystal_fragment", "default:mese_crystal_fragment", "default:jungleleaves", "default:jungleleaves", "default:jungleleaves"},
 })
 
 minetest.register_craftitem("jungletools:jungle_spore", {
@@ -147,24 +147,26 @@ if minetest.get_modpath("technic") then
         technic.register_grinder_recipe({input="jungletools:jungle_spore", output="jungletools:jungle_dust 1"})
 end
 
+--
 
-minetest.register_tool("jungletools:hoe_jungle", {
-    description = "Staff of Grass",
-    inventory_image = "jungletools_jungle_hoe.png",
-    liquids_pointable = true,
-    on_use = function(itemstack, user, pointed_thing)
-        if pointed_thing.type ~= "node" then
-            return
-        end
-        node = minetest.get_node(pointed_thing.under)
-        liquiddef = bucket.liquids["default:water_source"]
-        if liquiddef ~= nil and liquiddef.itemname ~= nil and (node.name == liquiddef.source or
-            (node.name == "default:water_source"or node.name == "default:lava_source")) then
-            minetest.add_node(pointed_thing.under, {name="default:dirt_with_grass"})
-        itemstack:add_wear(65535/70)
-        return itemstack
-        end
-    end
+minetest.register_tool("jungletools:staff_jungle", {
+	description = "Staff of Grass",
+	inventory_image = "jungletools_jungle_hoe.png",
+	tool_capabilities = {
+		full_punch_interval = 0.5,
+		max_drop_level=1,
+		groupcaps={
+			oddly_breakable_by_hand = {times={[1]=3.50,[2]=2.00,[3]=0.70}, uses=40}
+		},
+		damage_groups = {fleshy=1},
+	},
+		minetest.register_on_punchnode(function(pos, node, puncher)
+		if puncher:get_wielded_item():get_name() == 'jungletools:staff_jungle' then
+			if node.name == "default:dirt" then
+				minetest.add_node(pos, { name="default:dirt_with_grass"})
+			end
+		end
+	end)
 })
 
 minetest.register_craft({
@@ -273,6 +275,5 @@ minetest.register_node("jungletools:spore_grinder", {
 	groups = {choppy=3,oddly_breakable_by_hand=3},
 })
 
-
-
+--
 
