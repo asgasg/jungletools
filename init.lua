@@ -169,11 +169,19 @@ minetest.register_tool("jungletools:staff_jungle", {
 	},
 		minetest.register_on_punchnode(function(pos, node, puncher)
 		tool = puncher:get_wielded_item() 
-		if tool:get_name() == "jungletools:staff_jungle" then
+		if tool:get_name() == 'jungletools:staff_jungle' then
 			if node.name == "default:dirt" then
 				minetest.add_node(pos, { name="default:dirt_with_grass"})
 				tool:add_wear(65535/75)
 				puncher:set_wielded_item(tool)
+			end
+			if node.name == "default:dirt_with_grass" then
+				pos.y = pos.y+1
+				if minetest.registered_nodes[minetest.get_node(pos).name].buildable_to then
+					minetest.set_node(pos, {name = "default:grass_5"})
+					tool:add_wear(65535/75)
+					puncher:set_wielded_item(tool)
+				end
 			end
 		end
 	end)
