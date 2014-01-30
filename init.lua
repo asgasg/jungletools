@@ -62,13 +62,15 @@ minetest.register_tool("jungletools:sword_jungle", {
 		damage_groups = {fleshy=8},
 	},
 	minetest.register_on_punchnode(function(pos, node, puncher)
-		if puncher:get_wielded_item():get_name() == 'jungletools:sword_jungle' then
+		tool = puncher:get_wielded_item() 
+		if tool:get_name() == "jungletools:sword_jungle" then
 			if node.name == "default:grass_5" then
 				minetest.add_node(pos, { name="default:junglegrass"})
+				tool:add_wear(65535/75)
+				puncher:set_wielded_item(tool)
 			end
 		end
-	end)
-
+	end)	
 })
 
 minetest.register_craft({
@@ -93,14 +95,16 @@ minetest.register_tool("jungletools:pax_jungle", {
 		damage_groups = {fleshy=6},
 	},
 	minetest.register_on_punchnode(function(pos, node, puncher)
-		if puncher:get_wielded_item():get_name() == 'jungletools:pax_jungle' then
+		tool = puncher:get_wielded_item() 
+		if tool:get_name() == "jungletools:pax_jungle" then
 			if node.name == "default:tree" then
 				minetest.add_node(pos, { name="default:jungletree"})
+				tool:add_wear(65535/75)
+				puncher:set_wielded_item(tool)
 			end
 		end
 	end)
 })
-
 minetest.register_craft({
 	output = "jungletools:shovel_jungle",
 	recipe = {
@@ -123,9 +127,12 @@ minetest.register_tool("jungletools:shovel_jungle", {
 		damage_groups = {fleshy=6},
 	},
 	minetest.register_on_punchnode(function(pos, node, puncher)
-		if puncher:get_wielded_item():get_name() == 'jungletools:shovel_jungle' then
+		tool = puncher:get_wielded_item() 
+		if tool:get_name() == "jungletools:shovel_jungle" then
 			if node.name == "default:leaves" then
 				minetest.add_node(pos, { name="default:jungleleaves"})
+				tool:add_wear(65535/75)
+				puncher:set_wielded_item(tool)
 			end
 		end
 	end)
@@ -156,14 +163,17 @@ minetest.register_tool("jungletools:staff_jungle", {
 		full_punch_interval = 0.5,
 		max_drop_level=1,
 		groupcaps={
-			oddly_breakable_by_hand = {times={[1]=3.50,[2]=2.00,[3]=0.70}, uses=40}
+			oddly_breakable_by_hand = {times={[1]=2.00,[2]=1.50,[3]=0.50}, uses=0}
 		},
 		damage_groups = {fleshy=1},
 	},
 		minetest.register_on_punchnode(function(pos, node, puncher)
-		if puncher:get_wielded_item():get_name() == 'jungletools:staff_jungle' then
+		tool = puncher:get_wielded_item() 
+		if tool:get_name() == "jungletools:staff_jungle" then
 			if node.name == "default:dirt" then
 				minetest.add_node(pos, { name="default:dirt_with_grass"})
+				tool:add_wear(65535/75)
+				puncher:set_wielded_item(tool)
 			end
 		end
 	end)
