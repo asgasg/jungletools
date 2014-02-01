@@ -156,7 +156,7 @@ end
 
 --
 
-minetest.register_tool("jungletools:staff_jungle", {
+minetest.register_tool("jungletools:hoe_jungle", {
 	description = "Staff of Grass",
 	inventory_image = "jungletools_jungle_hoe.png",
 	tool_capabilities = {
@@ -169,7 +169,7 @@ minetest.register_tool("jungletools:staff_jungle", {
 	},
 		minetest.register_on_punchnode(function(pos, node, puncher)
 		tool = puncher:get_wielded_item() 
-		if tool:get_name() == 'jungletools:staff_jungle' then
+		if tool:get_name() == 'jungletools:hoe_jungle' then
 			if node.name == "default:dirt" then
 				minetest.add_node(pos, { name="default:dirt_with_grass"})
 				tool:add_wear(65535/75)
