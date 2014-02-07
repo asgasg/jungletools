@@ -214,7 +214,7 @@ minetest.register_node("jungletools:block_jungle", {
 minetest.register_craft({
 	output = "jungletools:spore_grinder", 
 	recipe = {
-		{"default:steelblock","jungletools:jungle_spore","default:steelblock"},
+		{"default:steelblock","default:glass","default:steelblock"},
 		{"jungletools:jungle_spore","default:diamond","jungletools:jungle_spore"},
 		{"default:steelblock","jungletools:jungle_spore","default:steelblock"},
 	}
